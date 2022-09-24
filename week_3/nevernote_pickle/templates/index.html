@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 align="left">
+    Current Notes:
+  </h1>
+  <ul>
+    {% for note in notes %}
+      <li><a href="/notes/{{ note.internal_title }}.pickle?view=true">{{ note.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock content %}

