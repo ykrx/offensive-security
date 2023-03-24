@@ -1,3 +1,2 @@
-# CTF Challenges
-
-Some of my coursework on cybersecurity, web/binary exploitation, SQL injection, cross-site scripting and reverse engineering for *Offensive Security* at New York University.
+# Offensive Security
+Some of my coursework for CS-GY 9223 — Offensive Security at NYU, around web & binary exploitation, SQL injection, XSS and reverse engineering, among others.
