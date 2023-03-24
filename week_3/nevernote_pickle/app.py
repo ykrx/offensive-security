@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os  # i hope no one uses os.system
+import os
 import pickle
 
 from flask import Flask, redirect, render_template, request, send_from_directory
@@ -25,7 +25,6 @@ class Note:
 
 def save_note(note, image):
     note_file = open(NOTE_FOLDER + secure_filename(note.title + ".pickle"), "wb")
-
     note_file.write(pickle.dumps(note))
     note_file.close()
 
@@ -56,15 +55,9 @@ def index():
 @app.route("/notes/<file_name>")
 def notes(file_name):
     if request.args.get("view", default=False):
-        ##################################################################
-        # let me go ahead and unpickle whatever file is being requested...
-        ##################################################################
         note = unpickle_file(file_name)
         return render_template("view.html", note=note)
     else:
-        ##################################################################
-        # let me go ahead and send whatever file is being requested...
-        ##################################################################
         return send_from_directory(NOTE_FOLDER, file_name)
 
 
@@ -87,7 +80,9 @@ def note_new():
         image = request.files.get("image")
         if not image.filename.endswith(".png"):
             return ("nah bro png images only!", 403)
-        new_note = Note(request.form.get("title"), request.form.get("content"), image_filename=image.filename)
+        new_note = Note(
+            request.form.get("title"), request.form.get("content"), image_filename=image.filename
+        )
         save_note(new_note, image)
         return redirect("/notes/" + new_note.internal_title + ".pickle" + "?view=true")
     return render_template("new.html")

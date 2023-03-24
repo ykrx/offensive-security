@@ -26,9 +26,7 @@ session = requests.Session()
 
 def setup():
     session.cookies.set(
-        name=os.environ.get("COOKIE_NAME"),
-        value=os.environ.get("COOKIE_VALUE"),
-        domain=DOMAIN,
+        name=os.environ.get("COOKIE_NAME"), value=os.environ.get("COOKIE_VALUE"), domain=DOMAIN,
     )
 
     print(chalk.bold("Cookies \t"), chalk.black(session.cookies.get_dict()))
