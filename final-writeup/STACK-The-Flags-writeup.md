@@ -16,7 +16,7 @@ The target is `157.245.52.169:32757`, which when navigated to, presents me with 
 
 ![](./images/Pasted%20image%2020221203010534.png)
 
-Interacting with the dropdown displays another template, _"Webserver Template Duplicate"_, which (when selected) renders an **Arguments** section below the (disabled/not-editable) template source, allowing us to create new templates with a `title`, `host` and `port`:
+Interacting with the dropdown displays another template, _"Webserver Template Duplicate"_, which (when selected) renders an **Arguments** section below the (disabled/non-editable) template source, allowing us to create new templates with a `title`, `host` and `port`:
 
 ![](./images/Screenshot%202022-12-03%20at%201.10.02%20AM.png)
 
