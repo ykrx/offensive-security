@@ -1,6 +1,6 @@
 # STACK The Flags CTF Writeup
 
-STACK The Flags (Category 2: University, Polytechnics)
+**STACK The Flags** (*Category 2: University, Polytechnics*)
 
 Link: https://ctf.hackthebox.com/event/747
 
@@ -12,7 +12,7 @@ Challenge: PyRunner
 
 ## Target
 
-The target is `157.245.52.169:32757`, which when navigated to, presents me with a simple web app that executes Python templates:
+The target is `157.245.52.169:32757`, which seems to serve a simple web app that executes Python templates:
 
 ![](./images/Pasted%20image%2020221203010534.png)
 
