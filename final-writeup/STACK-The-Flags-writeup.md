@@ -12,11 +12,11 @@ Challenge: PyRunner
 
 ## Target
 
-The target is `157.245.52.169:32757`, which seems to serve a simple web app that executes Python templates:
+The target is `157.245.52.169:32757`, which seems to serve a simple webapp that executes Python templates:
 
 ![](./images/Pasted%20image%2020221203010534.png)
 
-Interacting with the dropdown displays another template, _"Webserver Template Duplicate"_, which (when selected) renders an **Arguments** section below the (disabled/non-editable) template source, allowing us to create new templates with a `title`, `host` and `port`:
+Interacting with the dropdown displays another template, `Webserver Template Duplicate`, which (when selected) renders an **Arguments** section below the (disabled/non-editable) template source, allowing us to create new templates with a `title`, `host` and `port`:
 
 ![](./images/Screenshot%202022-12-03%20at%201.10.02%20AM.png)
 
@@ -24,7 +24,7 @@ Ok, so this challenge seems like it will deal with **command injection**, specif
 
 ### Files
 
-The challenge also provided the source code for the webapp:
+The challenge also provided us with the source code for the webapp:
 
 ![](./images/Pasted%20image%2020221203060133.png)
 
